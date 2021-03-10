@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>班级小助手</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}"
+          rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../../static/asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+        .box {
+            background-color: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0 .5em 1em -.125em rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .02);
+            color: #4a4a4a;
+            display: block;
+            padding: 1.25rem;
+            margin-bottom: 20px;
+        }
+        .media + .media {
+            border-top: 1px solid rgba(219, 219, 219, .5);
+            margin-top: 1rem;
+            padding-top: 1rem;
+        }
+        .media-content {
+            flex-basis: auto;
+            flex-grow: 1;
+            flex-shrink: 1;
+            text-align: inherit
+        }
+        .tag:not(body) {
+            align-items: center;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            color: #4a4a4a;
+            display: inline-flex;
+            font-size: .75rem;
+            height: 2em;
+            justify-content: center;
+            line-height: 1.5;
+            padding-left: .75em;
+            padding-right: .75em;
+            white-space: nowrap
+        }
+        .icon {
+            align-items: center;
+            display: inline-flex;
+            justify-content: center;
+            height: 1.5rem;
+            width: 1.5rem
+        }
+        .icon.is-medium {
+            height: 2rem;
+            width: 2rem
+        }
+        .media .content:not(:last-child) {
+            margin-bottom: .75rem
+        }
+        .tag.is-lightblue {
+            color: #2d84cc;
+            background: #ebf3fb;
+        }
+        .tag:not(body).is-medium {
+            font-size: 1rem
+        }
+        .ml-10 {
+            margin-left: 1rem;
+        }
+    </style>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.js}"
+            src="../../static/asserts/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" th:src="@{/asserts/js/popper.min.js}"
+            src="../../static/asserts/js/popper.min.js"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"
+            src="../../static/asserts/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/asserts/js/Chart.min.js}" src="../../static/asserts/js/Chart.min.js"></script>
+    <script type="text/javascript">
+        function back() {
+            window.location.href="javascript:history.go(-1)";
+        }
+    </script>
+</head>
+
+<body>
+
+<!-- 引入抽取的topbar -->
+<!-- 模板名：会使用thymeleaf的前后缀配置规则进行解析 -->
+<div th:replace="commons/bar::topbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!--	引入侧边栏	-->
+        <div th:replace="commons/bar::#sidebar(activeUri='classBulletin')"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">班级公告</h1>
+                <button onclick="back()" type="button" class="btn btn-primary" style="float: right;">
+                    返回
+                </button>
+            </div>
+            <div class="table-responsive" style="text-align: center;">
+                <table class="table table-bordered table-dark" style="margin: auto;width: 60%;">
+                    <thead>
+                    <tr>
+                        <th scope="col" th:text="'已确认('+${userCondition.get('confirmed').size()}+')'"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="confirmedUser:${userCondition.get('confirmed')}">
+                        <td th:text="${confirmedUser.username}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="border-bottom: 5px solid #6c757d;margin: 1rem auto 1rem auto;width: 60%;"></div>
+                <table class="table table-bordered table-dark" style="margin: auto;width: 60%;">
+                    <thead>
+                    <tr>
+                        <th scope="col" th:text="'未确认('+${userCondition.get('unconfirmed').size()}+')'"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="unconfirmedUser:${userCondition.get('unconfirmed')}">
+                        <td th:text="${unconfirmedUser.username}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        <form id="delEmpForm" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+
+<!-- Icons -->
+<script type="text/javascript" th:src="@{/asserts/js/feather.min.js}"
+        src="../../static/asserts/js/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+
+<script type="text/javascript">
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [{
+                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#007bff',
+                borderWidth: 4,
+                pointBackgroundColor: '#007bff'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+                display: false,
+            }
+        }
+    });
+</script>
+
+</body>
+
+</html>

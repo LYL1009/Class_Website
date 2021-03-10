@@ -1,0 +1,144 @@
+.table-responsive dl {
+    margin: 0;
+    padding: 15px 0;
+}
+
+dl {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.table-responsive dt {
+    min-width: 56px;
+}
+
+.table-responsive dt {
+    display: inline-block;
+    min-width: 94px;
+    text-align: right;
+    vertical-align: top;
+    color: #a6a6a6;
+}
+
+.table-responsive dd {
+    display: inline-block;
+    margin: 0 0 0 12px;
+    vertical-align: top;
+}
+
+dd {
+    display: block;
+    margin-inline-start: 40px;
+}
+
+dl.qdp-form-higher {
+    padding: 10px 0;
+}
+
+form {
+    display: block;
+    margin-top: 0em;
+}
+
+.ui-date-arrow {
+    position: absolute;
+    top: 10px;
+    right: 7px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background: url(/qdp/img/ui/Date/icon-arrow.cd865.png) no-repeat center;
+    background-size: 20px 20px;
+}
+
+.ui-textarea-x {
+    position: relative;
+    overflow: hidden;
+    padding: 2px 9px 32px 3px;
+}
+
+.textarea, .ui-textarea-x > textarea {
+    font-size: 14px;
+    line-height: 20px;
+    position: relative;
+    z-index: 1;
+    right: -6px;
+    display: block;
+    overflow: auto;
+    width: 100%;
+    padding: 7px 0 9px;
+    resize: none;
+    word-break: break-all;
+    color: #3e3d43;
+    border: 0 none;
+    outline: 0;
+    background: 0 0;
+}
+
+.ui-textarea-x > .ui-textarea {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    -webkit-transition: border-color .15s, background-color .15s;
+    transition: border-color .15s, background-color .15s;
+    border: 1px solid #e0deda;
+    background-color: #fff;
+}
+
+.ui-textarea-count {
+    font-size: 12px;
+    line-height: 32px;
+    position: absolute;
+    z-index: 1;
+    right: 10px;
+    bottom: 0;
+    left: 8px;
+    text-align: right;
+    color: #a6a6a6;
+}
+
+.ui-button {
+    min-width: 70px;
+}
+
+.ui-button:hover {
+    text-decoration: none;
+    background-color: #ee4259;
+}
+
+.ui-button {
+    font-size: 14px;
+    line-height: 20px;
+    display: inline-block;
+    overflow: visible;
+    min-width: 50px;
+    padding: 7px 15px;
+    cursor: pointer;
+    transition: background-color .15s, opacity .15s;
+    text-align: center;
+    color: #fff;
+    border: 1px solid transparent;
+    background-color: #bf2c24;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clip {
+    position: absolute;
+    clip: rect(0 0 0 0);
+}
+
+input, textarea {
+    font: inherit;
+    overflow: auto;
+    padding: 0;
+    resize: none;
+    color: inherit;
+    border: 0;
+    background: 0 0;
+}
