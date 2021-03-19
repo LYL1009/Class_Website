@@ -35,10 +35,25 @@ public interface UserMapper {
      */
     User getUserByUsername(String username);
 
+    /**
+     * 更改学生信息
+     * @param user
+     * @return
+     */
     int updateUserInfo(User user);
 
+    /**
+     * 通过id查询学生
+     * @param userId
+     * @return
+     */
     User getUserById(Integer userId);
 
+    /**
+     * 通过班级查询学生信息
+     * @param className
+     * @return
+     */
     List<User> getUsersByClassName(String className);
 
 }

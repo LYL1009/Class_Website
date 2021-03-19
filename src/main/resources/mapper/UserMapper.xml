@@ -52,7 +52,8 @@
         SET email=#{email},
             QQ=#{qq},
             phone=#{phone},
-            info=#{info}
+            info=#{info},
+            is_valid=#{isValid}
         WHERE user_id = #{userId}
     </update>
     <select id="getUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -63,6 +64,6 @@
     <select id="getUsersByClassName" resultMap="BaseResultMap">
         select user_id, username, age, gender, QQ, phone, email, class_name, work_num, info, is_valid,
                is_admin
-        from t_user where class_name=#{className}
+        from t_user where class_name=#{className} order by is_admin+1 desc
     </select>
 </mapper>

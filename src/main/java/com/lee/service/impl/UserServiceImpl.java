@@ -61,4 +61,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userMapper.getUserById(userId);
     }
 
+    @Override
+    public List<User> getClassUsersByUser(User user) {
+        if (user != null) {
+            return userMapper.getUsersByClassName(user.getClassName());
+        }
+        return null;
+    }
+
+    @Override
+    public int updateUserStatus(String isValid, Integer userId) {
+        User user = userMapper.getUserById(userId);
+        user.setIsValid(isValid);
+        int i = userMapper.updateUserInfo(user);
+        return i;
+    }
+
 }

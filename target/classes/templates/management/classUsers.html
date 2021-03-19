@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>班级小助手</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}"
+          rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../../static/asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <link href="../../static/asserts/css/userInfo.css" th:href="@{/asserts/css/userInfo.css}" rel="stylesheet"
+          type="text/css">
+    <style>
+        .tree li {
+            list-style-type: none;
+            cursor: pointer;
+        }
+
+        table thead tr {
+            text-align: center;
+        }
+
+        table tbody tr {
+            text-align: center;
+        }
+
+        table tbody tr:nth-child(odd) {
+            background: #F4F4F4;
+        }
+
+        /*table tbody td:nth-child(even) {*/
+        /*    !*color: #C00;*!*/
+        /*}*/
+    </style>
+    <script type="text/javascript">
+        function saveUserInfo() {
+            var email = $("#email").val();
+            var qq = $("#QQ").val();
+            var phone = $("#phone").val();
+            var info = $("#info").val();
+            console.log(email, qq, phone, info);
+            $.ajax({
+                url: "/saveUserInfo",
+                type: "post",
+                data: {
+                    email: email,
+                    qq: qq,
+                    phone: phone,
+                    info: info
+                },
+                dataType: "text",
+                success: function (data) {
+                    if (data == 'success') {
+                        alert("信息保存成功");
+                    }
+                }
+            });
+        }
+
+        function renew(userId) {
+            $.ajax({
+                url: "/renew",
+                type: "post",
+                data: {
+                    userId: userId,
+                    status: '1'
+                },
+                dataType: "text",
+                success: function (data) {
+                    if (data == 'success') {
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+
+        function freeze(userId) {
+            $.ajax({
+                url: "/freeze",
+                type: "post",
+                data: {
+                    userId: userId,
+                    status: '0'
+                },
+                dataType: "text",
+                success: function (data) {
+                    if (data == 'success') {
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+<!-- 引入抽取的topbar -->
+<!-- 模板名：会使用thymeleaf的前后缀配置规则进行解析 -->
+<div th:replace="commons/bar::topbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!--	引入侧边栏	-->
+        <div th:replace="commons/bar::#sidebar(activeUri='stuManager')"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="panel panel-default">
+                <!--                <div class="panel-heading" style="border-bottom: 1px solid #e5e5e5;padding-bottom: .5rem !important;margin-bottom: .5rem !important;">-->
+                <!--                    <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 个人信息</h3>-->
+                <!--                </div>-->
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1 class="h2">班级学生信息</h1>
+                </div>
+                <div class="panel-body">
+                    <!--                    <form action="#" th:action="@{/saveUserInfo}" method="post">-->
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">学号</th>
+                                <th scope="col">姓名</th>
+                                <th scope="col">年龄</th>
+                                <th scope="col">性别</th>
+                                <th scope="col">QQ</th>
+                                <th scope="col">电话</th>
+                                <th scope="col">邮箱</th>
+                                <th colspan="2">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="stu:${users}">
+                                <td scope="row" th:text="${stu.workNum}"></td>
+                                <td th:text="${stu.username}"></td>
+                                <td th:text="${stu.age}"></td>
+                                <td th:text="${stu.gender}"></td>
+                                <th th:text="${stu.qq}"></th>
+                                <td th:text="${stu.phone}"></td>
+                                <td th:text="${stu.email}"></td>
+                                <td>
+<!--                                    <a href="#" th:if="${stu.isValid == '0'}" th:href="@{/renew(userId=${stu.userId})}">-->
+                                        <button th:if="${stu.isValid == '0'}" type="button" class="btn btn-outline-primary"
+                                                th:onclick="'renew('+${stu.userId}+')'">恢复</button>
+<!--                                    </a>-->
+<!--                                    <a href="#" th:if="${stu.isValid == '1'}" th:href="@{/delete(userId=${stu.userId})}">-->
+                                        <button th:if="${stu.isValid == '1'}" type="button" class="btn btn-outline-danger"
+                                                th:onclick="'freeze('+${stu.userId}+')'">冻结</button>
+<!--                                    </a>-->
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <form id="delEmpForm" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.js}"
+        src="../../static/asserts/js/jquery-3.2.1.slim.min.js"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"
+        src="../../static/asserts/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/asserts/js/docs.min.js}"
+        src="../../static/asserts/js/docs.min.js"></script>
+<script type="text/javascript" th:src="@{/asserts/js/popper.min.js}"
+        src="../../static/asserts/js/popper.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".list-group-item").click(function () {
+            if ($(this).find("ul")) {
+                $(this).toggleClass("tree-closed");
+                if ($(this).hasClass("tree-closed")) {
+                    $("ul", this).hide("fast");
+                } else {
+                    $("ul", this).show("fast");
+                }
+            }
+        });
+    });
+</script>
+
+<!-- Icons -->
+<script type="text/javascript" th:src="@{/asserts/js/feather.min.js}"
+        src="../../static/asserts/js/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+
+<script>
+    $(".delBtn").click(function () {
+        //删除当前员工
+        $("#delEmpForm").attr("action", $(this).attr("del_uri")).submit();
+        return false;
+    });
+</script>
+
+<!-- Graphs -->
+<script type="text/javascript" th:src="@{/asserts/js/Chart.min.js}" src="../../static/asserts/js/Chart.min.js"></script>
+<script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [{
+                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#007bff',
+                borderWidth: 4,
+                pointBackgroundColor: '#007bff'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+                display: false,
+            }
+        }
+    });
+</script>
+
+</body>
+
+</html>

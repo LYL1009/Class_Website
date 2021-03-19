@@ -27,8 +27,33 @@ public interface UserService {
      */
     List<User> getAllUsers();
 
+    /**
+     * 保存学生信息
+     * @param user
+     * @return
+     */
     String saveUserInfo(User user);
 
+    /**
+     * 通过id获取学生信息
+     * @param userId
+     * @return
+     */
     User getUserById(Integer userId);
+
+    /**
+     * 通过班委信息查询该班级学生信息
+     * @param user
+     * @return
+     */
+    List<User> getClassUsersByUser(User user);
+
+    /**
+     * 通过学生id修改学生状态
+     * @param isValid
+     * @param userId
+     * @return
+     */
+    int updateUserStatus(String isValid, Integer userId);
 
 }
