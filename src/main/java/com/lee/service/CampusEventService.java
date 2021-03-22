@@ -8,4 +8,8 @@ public interface CampusEventService {
 
     List<CampusEvent> getAllCampusEvents();
 
+    String getDate();
+
+    int saveCampusEvent(CampusEvent campusEvent);
+
 }
