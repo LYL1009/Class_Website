@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
@@ -55,5 +56,14 @@ public interface UserService {
      * @return
      */
     int updateUserStatus(String isValid, Integer userId);
+
+    /**
+     * 通过userId获取username
+     *
+     * @author Lee
+     * @date 2021/3/5 17:23
+     * @return java.util.Map<java.lang.Integer, java.lang.Object>
+     */
+    Map<Integer, Object> getUserNameMap();
 
 }

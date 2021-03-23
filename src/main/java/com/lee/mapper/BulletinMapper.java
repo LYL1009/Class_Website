@@ -14,4 +14,6 @@ public interface BulletinMapper {
 
     Bulletin selectByBulletinId(Integer bulletinId);
 
+    int insert(Bulletin bulletin);
+
 }

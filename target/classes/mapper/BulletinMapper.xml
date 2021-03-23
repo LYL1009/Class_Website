@@ -24,4 +24,9 @@
         select bulletin_id, user_id, bulletin_head, bulletin_body, bulletin_img, release_time, class_name
         from t_class_bulletin where bulletin_id=#{bulletinId} order by bulletin_id desc
     </select>
+
+    <insert id="insert" parameterType="com.lee.entity.Bulletin">
+        insert into t_class_bulletin (user_id, bulletin_head, bulletin_body, bulletin_img, release_time, class_name)
+        values (#{userId}, #{bulletinHead}, #{bulletinBody}, #{bulletinImg}, #{releaseTime}, #{className})
+    </insert>
 </mapper>

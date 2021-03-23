@@ -19,7 +19,7 @@
 
     <select id="selectAll" resultMap="BaseResultMap">
         SELECT id,user_id,morality,intelligence,physique,aesthetics,labour,total_score,semester
-        FROM `t_quality_evaluation` ORDER BY total_score+0 DESC
+        FROM `t_quality_evaluation` ORDER BY intelligence+0 DESC,total_score+0 DESC
     </select>
 
     <select id="selectAllBySemester" parameterType="java.lang.String" resultMap="BaseResultMap">

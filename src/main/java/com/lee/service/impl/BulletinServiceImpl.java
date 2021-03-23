@@ -10,6 +10,7 @@ import com.lee.service.BulletinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -83,6 +84,21 @@ public class BulletinServiceImpl implements BulletinService {
             return "success";
         }
         return "error";
+    }
+
+    @Override
+    public int saveBulletin(Bulletin bulletin) {
+        String img = bulletin.getBulletinImg().length()>29?bulletin.getBulletinImg():null;
+        bulletin.setBulletinImg(img);
+        int i = bulletinMapper.insert(bulletin);
+        return i;
+    }
+
+    @Override
+    public String getFormatDate() {
+        Date date = new Date();
+        String format = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
+        return format;
     }
 
 }

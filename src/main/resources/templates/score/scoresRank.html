@@ -67,7 +67,7 @@
                                 <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#collapseTwo" th:data-target="'#collapse'+${score.getKey().getId()}"
                                         aria-expanded="false" th:aria-controls="'#collapse'+${score.getKey().getId()}"
-                                        th:text="${score.getKey().getSemester()}">
+                                        th:text="${courseMap.get(score.getKey().getSemester())}">
                                 </button>
                             </h2>
                         </div>

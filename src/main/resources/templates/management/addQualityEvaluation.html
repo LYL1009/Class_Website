@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>班级小助手</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/asserts/css/bootstrap.min.css" th:href="@{/asserts/css/bootstrap.min.css}"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../../static/asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+    <script type="text/javascript">
+        function back() {
+            window.location.href="javascript:history.go(-1)";
+        }
+    </script>
+</head>
+
+<body>
+
+<!-- 引入抽取的topbar -->
+<!-- 模板名：会使用thymeleaf的前后缀配置规则进行解析 -->
+<div th:replace="commons/bar::topbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!--	引入侧边栏	-->
+        <div th:replace="commons/bar::#sidebar(activeUri='scoreManagement')"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="panel panel-default">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1 class="h2">综合素质测评-成绩添加</h1>
+                    <button onclick="back()" type="button" class="btn btn-primary" style="float: right;">
+                        返回
+                    </button>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <form action="#" method="post">
+                            <div class="form-group">
+                                <label>姓名</label>
+                                <input name="username" type="text" class="form-control" placeholder="XXX">
+                            </div>
+                            <div class="form-group">
+                                <label>学期</label>
+                                <select class="form-control" name="semester">
+                                    <option value="">请选择</option>
+                                    <option value="201701">
+                                        大一上学期
+                                    </option>
+                                    <option value="201702">
+                                        大一下学期
+                                    </option>
+                                    <option value="201801">
+                                        大二上学期
+                                    </option>
+                                    <option value="201802">
+                                        大二下学期
+                                    </option>
+                                    <option value="201901">
+                                        大三上学期
+                                    </option>
+                                    <option value="201902">
+                                        大三下学期
+                                    </option>
+                                    <option value="202001">
+                                        大四上学期
+                                    </option>
+                                    <option value="202002">
+                                        大四下学期
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>德育素质测评</label>
+                                <input name="morality" type="text" class="form-control" placeholder="XXX">
+                            </div>
+                            <div class="form-group">
+                                <label>智育素质测评</label>
+                                <input name="intelligence" type="text" class="form-control" placeholder="XXX" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>体育素质测评</label>
+                                <input name="physique" type="text" class="form-control" placeholder="XXX">
+                            </div>
+                            <div class="form-group">
+                                <label>美育素质测评</label>
+                                <input name="aesthetics" type="text" class="form-control" placeholder="XXX">
+                            </div>
+                            <div class="form-group">
+                                <label>劳育素质测评</label>
+                                <input name="labour" type="text" class="form-control" placeholder="XXX">
+                            </div>
+                            <button type="submit" class="btn btn-primary">添加</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" th:src="@{/asserts/js/jquery-3.3.1.js}"
+        src="../../static/asserts/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" th:src="@{/asserts/js/popper.min.js}"
+        src="../../static/asserts/js/popper.min.js"></script>
+<script type="text/javascript" th:src="@{/asserts/js/bootstrap.min.js}"
+        src="../../static/asserts/js/bootstrap.min.js"></script>
+
+<!-- Icons -->
+<script type="text/javascript" th:src="@{/asserts/js/feather.min.js}"
+        src="../../static/asserts/js/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+
+<!-- Graphs -->
+<script type="text/javascript" th:src="@{/asserts/js/Chart.min.js}" src="../../static/asserts/js/Chart.min.js"></script>
+<script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [{
+                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#007bff',
+                borderWidth: 4,
+                pointBackgroundColor: '#007bff'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+                display: false,
+            }
+        }
+    });
+</script>
+
+</body>
+
+</html>

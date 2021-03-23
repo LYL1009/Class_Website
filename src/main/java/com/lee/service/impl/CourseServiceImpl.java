@@ -26,4 +26,9 @@ public class CourseServiceImpl implements CourseService {
         return map;
     }
 
+    @Override
+    public List<Course> getCourseList() {
+        return courseMapper.selectAll();
+    }
+
 }

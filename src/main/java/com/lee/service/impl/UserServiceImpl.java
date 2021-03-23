@@ -12,9 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -75,6 +73,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setIsValid(isValid);
         int i = userMapper.updateUserInfo(user);
         return i;
+    }
+
+    /**
+     * 通过userId获取username
+     *
+     * @author Lee
+     * @date 2021/3/5 17:23
+     * @return java.util.Map<java.lang.Integer, java.lang.Object>
+     */
+    @Override
+    public Map<Integer, Object> getUserNameMap() {
+        Map<Integer, Object> map = new HashMap<>();
+        List<User> allUsers = userMapper.selectAll();
+        for (User user : allUsers) {
+            map.put(user.getUserId(), user.getUsername());
+        }
+        return map;
     }
 
 }

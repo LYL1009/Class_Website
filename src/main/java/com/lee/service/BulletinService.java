@@ -15,4 +15,8 @@ public interface BulletinService {
 
     String receiveBulletin(ReceiveBulletin receiveBulletin);
 
+    int saveBulletin(Bulletin bulletin);
+
+    String getFormatDate();
+
 }

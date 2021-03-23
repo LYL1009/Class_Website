@@ -1,15 +1,16 @@
 package com.lee.service.impl;
 
+import com.alibaba.druid.util.StringUtils;
 import com.lee.entity.QualityEvaluation;
 import com.lee.mapper.QualityEvaluationMapper;
 import com.lee.service.QualityEvaluationService;
+import com.lee.util.SemesterUtils;
+import org.omg.CORBA.Object;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class QualityEvaluationServiceImpl implements QualityEvaluationService {
@@ -38,6 +39,30 @@ public class QualityEvaluationServiceImpl implements QualityEvaluationService {
             map.put(qe, qualityEvaluations);
         }
         return map;
+    }
+
+    @Override
+    public Map<String, List<QualityEvaluation>> getQualityEvaluations() {
+        Map<String, List<QualityEvaluation>> map = new HashMap<>();
+        List<QualityEvaluation> qualityEvaluations = qualityEvaluationMapper.selectAll();
+        map = qualityEvaluations.stream().collect(Collectors.groupingBy(QualityEvaluation::getSemester));
+//        map.forEach((k, v) -> {
+//            v = v.stream().sorted(Comparator.comparing(QualityEvaluation::getTotalScore)
+//                    .reversed().thenComparing(QualityEvaluation::getIntelligence).reversed())
+//                    .collect(Collectors.toList());
+//        });
+        return map;
+    }
+
+    @Override
+    public QualityEvaluation getQualityEvaluationByUserIdAndSemester(Integer userId, String semester) {
+        List<QualityEvaluation> qualityEvaluations = qualityEvaluationMapper.selectAllByUserId(userId);
+        for (QualityEvaluation qualityEvaluation : qualityEvaluations) {
+            if (StringUtils.equals(semester, qualityEvaluation.getSemester())) {
+                return qualityEvaluation;
+            }
+        }
+        return null;
     }
 
     private List<String> getUserSemester(Integer userId) {

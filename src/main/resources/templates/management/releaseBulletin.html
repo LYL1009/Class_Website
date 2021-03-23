@@ -94,55 +94,35 @@
 <div class="container-fluid">
     <div class="row">
         <!--	引入侧边栏	-->
-        <div th:replace="commons/bar::#sidebar(activeUri='releaseNews')"></div>
+        <div th:replace="commons/bar::#sidebar(activeUri='releaseBulletin')"></div>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <div class="panel panel-default">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                    <h1 class="h2">校园头条发布</h1>
+                    <h1 class="h2">班级公告发布</h1>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <form id="saveNews" th:action="@{/saveNews}" method="post" enctype="multipart/form-data">
+                        <form id="saveBulletin" th:action="@{/saveBulletin}" method="post" enctype="multipart/form-data">
+                            <input hidden="hidden" name="userId" th:value="${session.user.userId}">
+                            <input hidden="hidden" name="className" th:value="${session.user.className}">
+                            <div class="form-group">
+                                <label>标题</label>
+                                <input id="head" name="head" type="text" class="form-control" placeholder="XXX">
+                            </div>
                             <div class="form-group">
                                 <label>内容</label>
                                 <input id="body" name="body" type="text" class="form-control" placeholder="XXX">
                             </div>
                             <div class="form-group">
-                                <label>配图1</label>
+                                <label>配图</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="image1" name="image1"
                                            value="" readonly>
                                     <span class="input-group-btn">
                                         <label class="btn btn-default btn-file" style="margin-bottom: 0px;">
                                             上传图片 <input hidden="hidden" type="file" class="btn btn-default"
-                                                        name="file1" id="thumbnail-btn1" th:onchange="uploadImage1()">
-                                        </label>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>配图2</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="image2" name="image2"
-                                           value="" readonly>
-                                    <span class="input-group-btn">
-                                        <label class="btn btn-default btn-file" style="margin-bottom: 0px;">
-                                            上传图片 <input hidden="hidden" type="file" class="btn btn-default"
-                                                        name="file2" id="thumbnail-btn2" th:onchange="uploadImage2()">
-                                        </label>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>配图3</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="image3" name="image3"
-                                           value="" readonly>
-                                    <span class="input-group-btn">
-                                        <label class="btn btn-default btn-file" style="margin-bottom: 0px;">
-                                            上传图片 <input hidden="hidden" type="file" class="btn btn-default"
-                                                        name="file3" id="thumbnail-btn3" th:onchange="uploadImage3()">
+                                                        name="img" id="thumbnail-btn1" th:onchange="uploadImage1()">
                                         </label>
                                     </span>
                                 </div>

@@ -9,4 +9,8 @@ public interface QualityEvaluationService {
 
     Map<QualityEvaluation, List<QualityEvaluation>> getUserScoreInfo(Integer userId);
 
+    Map<String, List<QualityEvaluation>> getQualityEvaluations();
+
+    QualityEvaluation getQualityEvaluationByUserIdAndSemester(Integer userId, String semester);
+
 }

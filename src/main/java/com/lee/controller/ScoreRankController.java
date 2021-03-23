@@ -8,6 +8,7 @@ import com.lee.mapper.ScoreMapper;
 import com.lee.service.CourseService;
 import com.lee.service.QualityEvaluationService;
 import com.lee.service.ScoreService;
+import com.lee.util.SemesterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +48,8 @@ public class ScoreRankController {
         List<Score> userScores = scoreService.getUserScoreByUserId(userId);
         Map<Integer, Object> userNameById = classNewsController.getUserNameById();
         model.addAttribute("userScoreInfos", userScoreInfos).addAttribute("allCourse", allCourse)
-                .addAttribute("userScores", userScores).addAttribute("userNameById", userNameById);
+                .addAttribute("userScores", userScores).addAttribute("userNameById", userNameById)
+                .addAttribute("courseMap", SemesterUtils.getSemesterMapNumberKey());
         return "score/scoresRank";
     }
 

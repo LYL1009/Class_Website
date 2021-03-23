@@ -142,7 +142,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">
+                    <a class="nav-link" th:class="${activeUri=='releaseBulletin'?'nav-link active':'nav-link'}"
+                       href="#" th:href="@{/releaseBulletin}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                              stroke-linejoin="round" class="feather feather-file-text">
@@ -156,7 +157,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">
+                    <a class="nav-link" th:class="${activeUri=='scoreManagement'?'nav-link active':'nav-link'}"
+                       href="#" th:href="@{/scoreManagement}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                              stroke-linejoin="round" class="feather feather-file-text">
