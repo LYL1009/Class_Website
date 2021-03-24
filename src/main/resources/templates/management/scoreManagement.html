@@ -87,6 +87,14 @@
                                 </h2>
                             </div>
                             <div id="collapseTwo" th:id="'collapse'+${qualityEvaluation.getKey()}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                <div class="card-body" th:if="${qualityEvaluation.getValue().size() == 0}">
+                                    <p style="font-size: 24px;display: inline;">本学期暂无成绩信息</p>
+                                    <button type="button" class="btn btn-primary"
+                                            style="float: right;line-height: 10px;margin-right: 20px;margin-bottom: 1.5rem;">
+                                        <a style="color: whitesmoke;" th:href="@{/addScore(semester=${qualityEvaluation.getKey()})}">
+                                            专业课成绩录入</a>
+                                    </button>
+                                </div>
                                 <div class="card-body" th:if="${qualityEvaluation.getValue().size() > 0}">
                                     <p style="font-size: 24px;display: inline;">综合素质测评：</p>
                                     <button type="button" class="btn btn-primary"

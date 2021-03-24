@@ -1,5 +1,7 @@
 package com.lee.entity;
 
+import java.util.Objects;
+
 public class QualityEvaluation {
 
     private Integer id;
@@ -13,6 +15,16 @@ public class QualityEvaluation {
     private String semester; // 学期
 
     public QualityEvaluation() {
+    }
+
+    public QualityEvaluation(Integer userId, String morality, String intelligence, String physique, String aesthetics, String labour, String semester) {
+        this.userId = userId;
+        this.morality = morality;
+        this.intelligence = intelligence;
+        this.physique = physique;
+        this.aesthetics = aesthetics;
+        this.labour = labour;
+        this.semester = semester;
     }
 
     public QualityEvaluation(Integer userId, String morality, String intelligence, String physique, String aesthetics, String labour, String totalScore, String semester) {
@@ -96,6 +108,19 @@ public class QualityEvaluation {
 
     public void setSemester(String semester) {
         this.semester = semester;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QualityEvaluation that = (QualityEvaluation) o;
+        return Objects.equals(id, that.id) && Objects.equals(userId, that.userId) && Objects.equals(morality, that.morality) && Objects.equals(intelligence, that.intelligence) && Objects.equals(physique, that.physique) && Objects.equals(aesthetics, that.aesthetics) && Objects.equals(labour, that.labour) && Objects.equals(totalScore, that.totalScore) && Objects.equals(semester, that.semester);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userId, morality, intelligence, physique, aesthetics, labour, totalScore, semester);
     }
 
     @Override

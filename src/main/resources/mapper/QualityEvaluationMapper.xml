@@ -19,16 +19,33 @@
 
     <select id="selectAll" resultMap="BaseResultMap">
         SELECT id,user_id,morality,intelligence,physique,aesthetics,labour,total_score,semester
-        FROM `t_quality_evaluation` ORDER BY intelligence+0 DESC,total_score+0 DESC
+        FROM `t_quality_evaluation` ORDER BY total_score+0 DESC, intelligence+0 DESC
     </select>
 
     <select id="selectAllBySemester" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT id,user_id,morality,intelligence,physique,aesthetics,labour,total_score,semester
-        FROM `t_quality_evaluation` WHERE semester=#{semester} ORDER BY total_score+0 DESC
+        FROM `t_quality_evaluation` WHERE semester=#{semester} ORDER BY total_score+0 DESC, intelligence+0 DESC
     </select>
 
     <select id="selectAllByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT id,user_id,morality,intelligence,physique,aesthetics,labour,total_score,semester
-        FROM `t_quality_evaluation` WHERE user_id=#{userId} ORDER BY total_score+0 DESC
+        FROM `t_quality_evaluation` WHERE user_id=#{userId} ORDER BY total_score+0 DESC, intelligence+0 DESC
     </select>
+
+    <select id="getQualityEvaluationById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT id,user_id,morality,intelligence,physique,aesthetics,labour,total_score,semester
+        FROM `t_quality_evaluation` WHERE id=#{id}
+    </select>
+
+    <insert id="insert" parameterType="com.lee.entity.QualityEvaluation">
+        insert into t_quality_evaluation (user_id, morality, intelligence, physique, aesthetics, labour, total_score, semester)
+        values (#{userId}, #{morality}, #{intelligence}, #{physique}, #{aesthetics}, #{labour}, #{totalScore}, #{semester})
+    </insert>
+
+    <update id="update" parameterType="com.lee.entity.QualityEvaluation">
+        update t_quality_evaluation
+        set morality=#{morality}, intelligence=#{intelligence}, physique=#{physique},
+            aesthetics=#{aesthetics}, labour=#{labour}, total_score=#{totalScore}
+        where id=#{id}
+    </update>
 </mapper>

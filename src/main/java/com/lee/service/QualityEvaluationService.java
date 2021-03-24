@@ -13,4 +13,6 @@ public interface QualityEvaluationService {
 
     QualityEvaluation getQualityEvaluationByUserIdAndSemester(Integer userId, String semester);
 
+    int saveOrUpdateQualityEvaluation(QualityEvaluation qualityEvaluation, String type);
+
 }

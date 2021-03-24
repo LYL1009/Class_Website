@@ -16,4 +16,10 @@ public interface QualityEvaluationMapper {
 
     List<QualityEvaluation> selectAllByUserId(Integer userId);
 
+    QualityEvaluation getQualityEvaluationById(Integer id);
+
+    int insert(QualityEvaluation qualityEvaluation);
+
+    int update(QualityEvaluation qualityEvaluation);
+
 }

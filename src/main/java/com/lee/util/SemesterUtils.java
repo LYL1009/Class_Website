@@ -1,9 +1,24 @@
 package com.lee.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SemesterUtils {
+
+    public static List<String> getAllSemesters() {
+        List<String> list = new ArrayList<>();
+        list.add("201701");
+        list.add("201702");
+        list.add("201801");
+        list.add("201802");
+        list.add("201901");
+        list.add("201902");
+        list.add("202001");
+        list.add("202002");
+        return list;
+    }
 
     public static Map<String, Object> getSemesterMapTextKey() {
         Map<String, Object> map = new HashMap<>();

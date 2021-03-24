@@ -69,12 +69,14 @@
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <form action="#" method="post">
+                        <form th:action="@{/updateQualityEvaluation}" method="post">
+                            <input hidden="hidden" name="id" th:value="${qualityEvaluation.id}">
+                            <input hidden="hidden" name="totalScore" th:value="${qualityEvaluation.totalScore}">
+                            <input hidden="hidden" name="userId" th:value="${qualityEvaluation.userId}">
                             <div class="form-group">
                                 <label>姓名</label>
                                 <input name="username" type="text" class="form-control"
-                                       th:value="${userMap.get(qualityEvaluation.userId)}" placeholder="XXX"
-                                       readonly>
+                                       th:value="${userMap.get(qualityEvaluation.userId)}" placeholder="XXX" readonly>
                             </div>
                             <div class="form-group">
                                 <label>学期</label>
@@ -110,28 +112,28 @@
                             </div>
                             <div class="form-group">
                                 <label>德育素质测评</label>
-                                <input name="morality" type="text" class="form-control" placeholder="XXX"
+                                <input name="morality" type="text" class="form-control" placeholder="输入的数字请保留两位小数"
                                        th:value="${qualityEvaluation.morality}">
                             </div>
                             <div class="form-group">
                                 <label>智育素质测评</label>
-                                <input name="intelligence" type="text" class="form-control" placeholder="XXX"
-                                       th:value="${qualityEvaluation.intelligence}" readonly>
+                                <input name="intelligence" type="text" class="form-control" placeholder="输入的数字请保留两位小数"
+                                       th:value="${qualityEvaluation.intelligence}">
                             </div>
                             <div class="form-group">
                                 <label>体育素质测评</label>
                                 <input name="physique" type="text" class="form-control"
-                                       th:value="${qualityEvaluation.physique}" placeholder="XXX">
+                                       th:value="${qualityEvaluation.physique}" placeholder="输入的数字请保留两位小数">
                             </div>
                             <div class="form-group">
                                 <label>美育素质测评</label>
                                 <input name="aesthetics" type="text" class="form-control"
-                                       th:value="${qualityEvaluation.aesthetics}" placeholder="XXX">
+                                       th:value="${qualityEvaluation.aesthetics}" placeholder="输入的数字请保留两位小数">
                             </div>
                             <div class="form-group">
                                 <label>劳育素质测评</label>
                                 <input name="labour" type="text" class="form-control"
-                                       th:value="${qualityEvaluation.labour}" placeholder="XXX">
+                                       th:value="${qualityEvaluation.labour}" placeholder="输入的数字请保留两位小数">
                             </div>
                             <button type="submit" class="btn btn-primary">修改</button>
                         </form>

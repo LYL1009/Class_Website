@@ -1,5 +1,6 @@
 package com.lee.controller;
 
+import com.alibaba.druid.util.StringUtils;
 import com.lee.entity.*;
 import com.lee.service.*;
 import com.lee.util.SemesterUtils;
@@ -7,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ClassUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.jws.WebParam;
@@ -217,6 +215,35 @@ public class ManageController {
         List<Course> courseList = courseService.getCourseList();
         model.addAttribute("semester", semester).addAttribute("courseList", courseList);
         return "management/addScore";
+    }
+
+    @PostMapping(value = "/saveQualityEvaluation")
+    public String saveQualityEvaluation(@RequestParam("username") String username, @RequestParam("semester") String semester,
+                                        @RequestParam("morality") String morality, @RequestParam("intelligence") String intelligence,
+                                        @RequestParam("physique") String physique, @RequestParam("aesthetics") String aesthetics,
+                                        @RequestParam("labour") String labour) {
+        Integer userId = null;
+        for (Map.Entry<Integer, Object> entry : userService.getUserNameMap().entrySet()) {
+            if (StringUtils.equals(username, entry.getValue() + "")) {
+                userId = entry.getKey();
+                break;
+            }
+        }
+        QualityEvaluation qualityEvaluation = new QualityEvaluation(userId, morality, intelligence, physique, aesthetics, labour, semester);
+        int save = qualityEvaluationService.saveOrUpdateQualityEvaluation(qualityEvaluation, "save");
+        if (save > 0) {
+            return "redirect:/scoreManagement";
+        }
+        return null;
+    }
+
+    @PostMapping(value = "/updateQualityEvaluation")
+    public String updateQualityEvaluation(QualityEvaluation qualityEvaluation) {
+        int update = qualityEvaluationService.saveOrUpdateQualityEvaluation(qualityEvaluation, "update");
+        if (update > 0) {
+            return "redirect:/scoreManagement";
+        }
+        return null;
     }
 
 }
