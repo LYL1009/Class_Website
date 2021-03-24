@@ -68,14 +68,14 @@
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <form action="#" method="post">
+<!--                        <form action="#" method="post">-->
                             <div class="form-group">
                                 <label>姓名</label>
-                                <input name="username" type="text" class="form-control" placeholder="XXX">
+                                <input id="username" name="username" type="text" class="form-control" placeholder="XXX">
                             </div>
                             <div class="form-group">
                                 <label>学期</label>
-                                <select class="form-control" name="semester" readonly="readonly"
+                                <select class="form-control" id="semester" name="semester" readonly="readonly"
                                         onfocus="this.defaultIndex=this.selectedIndex;"
                                         onchange="this.selectedIndex=this.defaultIndex;">
                                     <option value="">请选择</option>
@@ -108,7 +108,7 @@
                             <div class="form-group">
                                 <label>学科</label>
                                 <!--   提交的是学科id   -->
-                                <select class="form-control" name="course.id">
+                                <select class="form-control" id="courseId" name="courseId">
                                     <option value="">请选择</option>
                                     <option th:each="course:${courseList}" th:value="${course.getCourseId()}"
                                             th:text="${course.getCourseName()}"></option>
@@ -116,10 +116,10 @@
                             </div>
                             <div class="form-group">
                                 <label>分数</label>
-                                <input name="score" type="text" class="form-control" placeholder="XXX">
+                                <input id="score" name="score" type="text" class="form-control" placeholder="XXX">
                             </div>
-                            <button type="submit" class="btn btn-primary">提交</button>
-                        </form>
+                            <button type="button" class="btn btn-primary" th:onclick="'saveScore()'">提交</button>
+<!--                        </form>-->
                     </div>
                 </div>
             </div>
@@ -130,8 +130,8 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" th:src="@{/asserts/js/jquery-3.2.1.slim.min.js}"
-        src="../../static/asserts/js/jquery-3.2.1.slim.min.js"></script>
+<script type="text/javascript" th:src="@{/asserts/js/jquery-3.3.1.js}"
+        src="../../static/asserts/js/jquery-3.3.1.js"></script>
 <script type="text/javascript" th:src="@{/asserts/js/popper.min.js}"
         src="../../static/asserts/js/popper.min.js"></script>
 <script type="text/javascript" th:src="@{/asserts/js/bootstrap.min.js}"
@@ -146,7 +146,33 @@
 
 <!-- Graphs -->
 <script type="text/javascript" th:src="@{/asserts/js/Chart.min.js}" src="../../static/asserts/js/Chart.min.js"></script>
-<script>
+<script type="text/javascript">
+    function saveScore() {
+        var username = $("#username").val();
+        var semester = $("#semester").val();
+        var courseId = $("#courseId").val();
+        var score = $("#score").val();
+        console.log(username+","+semester+","+courseId+","+score);
+        $.ajax({
+            url: "/saveScore",
+            type: "post",
+            data: {
+                username: username,
+                semester: semester,
+                courseId: courseId,
+                score: score
+            },
+            dataType: "text",
+            success: function (data) {
+                if (data == 'success') {
+                    alert(username + '同学的成绩已成功插入！');
+                    $("#courseId").val("");
+                    $("#score").val("");
+                }
+            }
+        });
+    }
+
     var ctx = document.getElementById("myChart");
     var myChart = new Chart(ctx, {
         type: 'line',

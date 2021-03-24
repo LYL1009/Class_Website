@@ -8,4 +8,6 @@ public interface ScoreService {
 
     List<Score> getUserScoreByUserId(Integer userId);
 
+    int saveScore(Score score);
+
 }

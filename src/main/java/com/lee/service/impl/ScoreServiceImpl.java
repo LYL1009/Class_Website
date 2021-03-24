@@ -18,4 +18,10 @@ public class ScoreServiceImpl implements ScoreService {
     public List<Score> getUserScoreByUserId(Integer userId) {
         return scoreMapper.selectScoreByUserId(userId);
     }
+
+    @Override
+    public int saveScore(Score score) {
+        return scoreMapper.insert(score);
+    }
+
 }

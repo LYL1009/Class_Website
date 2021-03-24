@@ -246,4 +246,19 @@ public class ManageController {
         return null;
     }
 
+    @PostMapping(value = "/saveScore")
+    @ResponseBody
+    public String saveScore(Score score, @RequestParam("username") String username) {
+        for (Map.Entry<Integer, Object> entry : userService.getUserNameMap().entrySet()) {
+            if (StringUtils.equals(username, entry.getValue() + "")) {
+                score.setUserId(entry.getKey());
+                break;
+            }
+        }
+        int i = scoreService.saveScore(score);
+        if (i > 0) {
+            return "success";
+        }
+        return "";
+    }
 }
