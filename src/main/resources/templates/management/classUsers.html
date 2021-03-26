@@ -114,6 +114,10 @@
             <div class="panel panel-default">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
                     <h1 class="h2">班级学生信息</h1>
+                    <button type="button" class="btn btn-primary"
+                            style="float: right;line-height: 10px;margin-right: 20px;">
+                        <a style="color: whitesmoke" th:href="@{/addUser}">添加学生</a>
+                    </button>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -136,9 +140,12 @@
                                 <td th:text="${stu.username}"></td>
                                 <td th:text="${stu.age}"></td>
                                 <td th:text="${stu.gender}"></td>
-                                <th th:text="${stu.qq}"></th>
-                                <td th:text="${stu.phone}"></td>
-                                <td th:text="${stu.email}"></td>
+                                <td th:if="${stu.qq == null}" th:text="暂无信息"></td>
+                                <td th:if="${stu.qq != null}" th:text="${stu.qq}"></td>
+                                <td th:if="${stu.phone == null}" th:text="暂无信息"></td>
+                                <td th:if="${stu.phone != null}" th:text="${stu.phone}"></td>
+                                <td th:if="${stu.email == null}" th:text="暂无信息"></td>
+                                <td th:if="${stu.email != null}" th:text="${stu.email}"></td>
                                 <td>
 <!--                                    <a href="#" th:if="${stu.isValid == '0'}" th:href="@{/renew(userId=${stu.userId})}">-->
                                         <button th:if="${stu.isValid == '0'}" type="button" class="btn btn-outline-primary"

@@ -66,4 +66,11 @@ public interface UserService {
      */
     Map<Integer, Object> getUserNameMap();
 
+    /**
+     * 判断库中不含该学号的user，保存user对象
+     * @param user
+     * @return
+     */
+    int saveUser(User user);
+
 }

@@ -1,5 +1,6 @@
 package com.lee.service.impl;
 
+import com.alibaba.druid.util.StringUtils;
 import com.lee.entity.User;
 import com.lee.mapper.UserMapper;
 import com.lee.service.UserService;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -90,6 +92,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             map.put(user.getUserId(), user.getUsername());
         }
         return map;
+    }
+
+    @Override
+    public int saveUser(User user) {
+        List<User> users = userMapper.selectAll();
+        Map<String, List<User>> collect = users.stream().collect(Collectors.groupingBy(User::getWorkNum));
+        if (collect.containsKey(user.getWorkNum())) {
+            return 0;
+        }
+        return userMapper.insert(user);
     }
 
 }

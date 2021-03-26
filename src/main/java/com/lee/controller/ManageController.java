@@ -50,8 +50,24 @@ public class ManageController {
             return "management/classUsers";
         }
         List<User> list = userService.getClassUsersByUser(user);
+        list.sort((s1, s2) -> s1.getWorkNum().compareTo(s2.getWorkNum()));
         model.addAttribute("users", list);
         return "management/classUsers";
+    }
+
+    @GetMapping(value = "/addUser")
+    public String addUser() {
+        return "management/addUser";
+    }
+
+    @PostMapping(value = "/saveUser")
+    @ResponseBody
+    public String saveUser(User user) {
+        int i = userService.saveUser(user);
+        if (i > 0) {
+            return "success";
+        }
+        return "error";
     }
 
     @PostMapping(value = "/renew")
@@ -81,6 +97,7 @@ public class ManageController {
 
     /**
      * 校园头条发布，可以上传三张图片，使用type=file形式传到后端(使用MultipartFile类接收)
+     *
      * @param body
      * @param image1
      * @param image2
