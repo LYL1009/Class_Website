@@ -29,4 +29,10 @@ public interface ClassNewsService {
      */
     NewsLike giveLike(Integer userId, Integer newsId);
 
+    /**
+     * 发布说说方法
+     * @param classNews
+     * @return
+     */
+    String saveNews(ClassNews classNews);
 }

@@ -26,7 +26,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/index.html")
                 .loginProcessingUrl("/user/login")
-                .successForwardUrl("/user/login");
+                .successForwardUrl("/user/login")
+                .failureForwardUrl("/user/login");
     }
 
      /*

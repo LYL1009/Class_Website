@@ -10,10 +10,7 @@ import com.lee.service.ClassNewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ClassNewsServiceImpl implements ClassNewsService {
@@ -35,7 +32,7 @@ public class ClassNewsServiceImpl implements ClassNewsService {
         List<ClassComment> classComments = classCommentMapper.selectAll();
 
         // 创建封装新闻和相应评论的集合
-        Map<ClassNews, List<ClassComment>> map = new HashMap<>();
+        Map<ClassNews, List<ClassComment>> map = new LinkedHashMap<>();
         // 遍历班级新闻
         for (ClassNews classNew : classNews) {
             List<ClassComment> comments = new ArrayList<>();
@@ -81,6 +78,17 @@ public class ClassNewsServiceImpl implements ClassNewsService {
             return newsLike;
         }
         return null;
+    }
+
+    @Override
+    public String saveNews(ClassNews classNews) {
+        if (classNews.getNewsInfo() != null && classNews.getNewsInfo().length() > 0 && classNews.getUserId() != null) {
+            int insert = classNewsMapper.insert(classNews);
+            if (insert > 0) {
+                return "success";
+            }
+        }
+        return "error";
     }
 
 }

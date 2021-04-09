@@ -23,6 +23,10 @@ public class LoginController {
                         Map<String, Object> map, HttpSession session) {
         User user = userService.getUserByUsername(username);
         if (user != null) {
+            if (StringUtils.equals("0", user.getIsValid())) {
+                map.put("msg", "用户被冻结！");
+                return "login";
+            }
             if (username.equals(user.getUsername()) && password.equals(user.getWorkNum())) {
                 //登陆成功，防止表单重复提交，可以重定向到主页
                 session.setAttribute("user", user);

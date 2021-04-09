@@ -46,6 +46,12 @@ public class ClassNewsController {
         return "news/list";
     }
 
+    @PostMapping(value = "/saveTalking")
+    @ResponseBody
+    public String saveNews(ClassNews classNews) {
+        return classNewsService.saveNews(classNews);
+    }
+
     @GetMapping(value = "/giveLike")
     public String giveLike(@RequestParam("userId") Integer userId, @RequestParam("newsId") Integer newsId, Model model) {
         NewsLike newsLike = classNewsService.giveLike(userId, newsId);

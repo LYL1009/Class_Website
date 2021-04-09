@@ -3,6 +3,8 @@ server:
 
 spring:
   servlet:
+    session:
+      timeout: 18000
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB

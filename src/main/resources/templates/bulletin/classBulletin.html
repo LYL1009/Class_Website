@@ -125,15 +125,14 @@
     <script type="text/javascript" th:src="@{/asserts/js/Chart.min.js}"
             src="../../static/asserts/js/Chart.min.js"></script>
     <script type="text/javascript">
-        function receiveBulletin() {
-            var bulletinId = $("#bulletinId").val();
+        function receiveBulletin(bulletinId) {
             var userId = $("#userId").val();
             $.ajax({
                 url: "/receiveBulletin",
                 type: "post",
                 data: {
-                    bulletinId: bulletinId,
-                    userId: userId
+                    "bulletinId": bulletinId,
+                    "userId": userId
                 },
                 dataType: "text",
                 success: function (data) {
@@ -162,6 +161,7 @@
                 <h1 class="h2">班级公告</h1>
             </div>
             <div class="table-responsive">
+                <input id="userId" type="hidden" th:value="${session.user.userId}"/>
                 <div class="box" th:each="bulletin:${allBulletins.entrySet()}">
                     <div class="media">
                         <div class="media-content">
@@ -186,11 +186,9 @@
                                 <div style="margin-top: 1rem;"
                                      th:if="${!bulletin.getValue().contains(session.user.userId)}">
                                     <strong style="font-size: 16px;">该公告需要您确认收到</strong>
-                                    <input id="bulletinId" type="hidden" th:value="${bulletin.getKey().bulletinId}"/>
-                                    <input id="userId" type="hidden" th:value="${session.user.userId}"/>
                                     <button type="button" class="btn btn-primary"
                                             style="float: right;line-height: 10px;margin-right: 20px;"
-                                            th:onclick="receiveBulletin()">
+                                            th:onclick="'receiveBulletin('+${bulletin.getKey().bulletinId}+')'">
                                         确认收到
                                     </button>
                                 </div>
